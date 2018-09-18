@@ -7,6 +7,6 @@ const colourRoutes = require('./routes/colours');
 server.use(express.static(path.join(__dirname, '..', 'public')))
 server.use(express.json())
 
-server.use('/colours', colourRoutes)
+server.use('/api/v1/colours', colourRoutes)
 
 module.exports = server

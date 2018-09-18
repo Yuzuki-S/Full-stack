@@ -6,6 +6,7 @@ function getColours() {
   return db('colours').then(colours => {
     return colours.map(colour => {
       colour.code = JSON.parse(colour.code)
+      colour.colour = colour.color
       return colour
     })
   })
