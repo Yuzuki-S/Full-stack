@@ -1,30 +1,43 @@
-export function addPackageAction(type) {
+import request from '../utils/api'
+
+export function addPackageAction(purchase) {
+  console.log(purchase);
+  
   return function(dispatch) {
-    dispatch(addPackageReq(type));
-    request("get", "/add", { type: type }).then(response => {
+    let packageobj = {
+      thing: purchase
+    }
+    dispatch(addPackageReq(purchase));
+    request("get", "/add", packageobj).then(response => {
       if (!response.ok) {
+        console.log("boooo");
+        
       } else {
-        dispatch(receiveDelBag(response.body.bag));
+        console.log(response.body);
+        
+        dispatch(receivePackage(response.body));
       }
     });
   };
 }
 
 
-function addPackageReq(type) {
+function addPackageReq(thing) {
+  //console.log(type);
+  
   return {
     type: "PACKAGE_REQ",
     isFetching: true,
     isAuthenticated: true,
-    type
+    thing
   };
 }
 
-//   function receiveDelBag(response) {
-//     return {
-//       type: "BAG_DEL_DONE",
-//       isFetching: false,
-//       isAuthenticated: true,
-//       response: response
-//     };
-//   }
+  function receivePackage(response) {
+    return {
+      type: "PACKAGE_RECEIVE",
+      isFetching: false,
+      isAuthenticated: true,
+      response: response
+    };
+  }

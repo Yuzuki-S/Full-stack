@@ -11,6 +11,7 @@ module.exports = {
   getByName
 }
 
+
 function create (username, password, testDb) {
   const hash = crypto.getHash(password)
   const connection = testDb || knex

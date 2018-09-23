@@ -1,3 +1,5 @@
+const db = require('../lib/db')
+
 const express = require('express')
 const verifyJwt = require('express-jwt')
 
@@ -13,6 +15,19 @@ router.post('/signin',
   signIn,
   auth.issueJwt
 )
+
+router.get('/add', (req, res)=> {
+ let package = req.query;
+ db.savePackage(package)
+ .then(
+   data => {
+    res.json(data); 
+   }
+ )
+})
+
+
+
 
 function sayHello(req,res,next) {
   console.log('Hello')
