@@ -16,15 +16,7 @@ router.post('/signin',
   auth.issueJwt
 )
 
-router.get('/add', (req, res)=> {
- let package = req.query;
- db.savePackage(package)
- .then(
-   data => {
-    res.json(data); 
-   }
- )
-})
+
 
 
 
@@ -114,5 +106,16 @@ router.get('/secret', (req, res) => {
     user: `Your user ID is: ${req.user.id}`
   })
 })
+
+router.get('/add', (req, res)=> {
+   console.log(req.user.username)
+  let package = req.query;
+  db.savePackage(package, req.user.username)
+  .then(
+    data => {
+     res.json(data); 
+    }
+  )
+ })
 
 module.exports = router
